@@ -6,7 +6,8 @@ data class RedditResponse(
 )
 
 data class RedditData(
-    val children: List<RedditPostWrapper>
+    val children: List<RedditPostWrapper>,
+    val after: String
 )
 
 data class RedditPostWrapper(
@@ -20,5 +21,6 @@ data class RedditPost(
     val subreddit: String,
     val ups: Int,
     val url: String,
-    val thumbnail: String?
+    val thumbnail: String?,
+    val author_fullname: String
 )

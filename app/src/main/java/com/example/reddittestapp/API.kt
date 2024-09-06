@@ -10,6 +10,12 @@ interface RedditApiService {
     suspend fun getTopPosts(
         @Query("limit") limit: Int
     ): RedditResponse
+
+    @GET("r/all/top.json")
+    suspend fun getNextPage(
+        @Query("limit") limit: Int,
+        @Query("after") after: String
+    ): RedditResponse
 }
 
 object RetrofitClient {

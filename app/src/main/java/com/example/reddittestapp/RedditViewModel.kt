@@ -9,13 +9,20 @@ import kotlinx.coroutines.launch
 class RedditViewModel : ViewModel() {
     private var _posts = MutableStateFlow<List<RedditPost>>(emptyList())
     var posts: StateFlow<List<RedditPost>> = _posts
+    var after = ""
+    private val limit = 15
+    var isLoading = false
+
     init {
         fetchData()
     }
-    fun fetchData() {
+
+    private fun fetchData() {
         viewModelScope.launch {
+            isLoading = true
             try {
-                val response = RetrofitClient.apiService.getTopPosts(5)
+                val response = RetrofitClient.apiService.getTopPosts(limit)
+                after = response.data.after
                 _posts.value = response.data.children.map {
                     RedditPost(
                         author = it.data.author,
@@ -24,11 +31,41 @@ class RedditViewModel : ViewModel() {
                         title = it.data.title,
                         ups = it.data.ups,
                         url = it.data.url,
-                        thumbnail = it.data.thumbnail
+                        thumbnail = it.data.thumbnail,
+                        author_fullname = it.data.author_fullname
                     )
                 }
             } catch (e: Exception) {
-                e.printStackTrace() // Обработка ошибок
+                e.printStackTrace()
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    fun loadNextPage(after: String) {
+        if (isLoading) return
+        viewModelScope.launch {
+            isLoading = true
+            try {
+                val response = RetrofitClient.apiService.getNextPage(limit, after)
+                this@RedditViewModel.after = response.data.after
+                _posts.value += response.data.children.map {
+                    RedditPost(
+                        author = it.data.author,
+                        created_utc = it.data.created_utc,
+                        subreddit = it.data.subreddit,
+                        title = it.data.title,
+                        ups = it.data.ups,
+                        url = it.data.url,
+                        thumbnail = it.data.thumbnail,
+                        author_fullname = it.data.author_fullname
+                    )
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            } finally {
+                isLoading = false
             }
         }
     }
