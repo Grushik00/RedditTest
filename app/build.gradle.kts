@@ -54,9 +54,15 @@ dependencies {
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation ("androidx.room:room-runtime:2.5.2")
+    implementation(libs.androidx.media3.exoplayer)
     kapt ("androidx.room:room-compiler:2.5.2")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     kapt ("com.github.bumptech.glide:compiler:4.15.1")
+    implementation ("androidx.compose.material:material-icons-extended:1.5.0")
+    implementation ("androidx.compose.runtime:runtime-livedata:1.4.0")
+    implementation ("com.google.accompanist:accompanist-permissions:0.28.0")
+
+
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

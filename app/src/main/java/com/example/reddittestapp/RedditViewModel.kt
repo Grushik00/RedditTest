@@ -27,12 +27,9 @@ class RedditViewModel : ViewModel() {
                     RedditPost(
                         author = it.data.author,
                         created_utc = it.data.created_utc,
-                        subreddit = it.data.subreddit,
                         title = it.data.title,
-                        ups = it.data.ups,
-                        url = it.data.url,
                         thumbnail = it.data.thumbnail,
-                        author_fullname = it.data.author_fullname
+                        num_comments = it.data.num_comments
                     )
                 }
             } catch (e: Exception) {
@@ -54,12 +51,9 @@ class RedditViewModel : ViewModel() {
                     RedditPost(
                         author = it.data.author,
                         created_utc = it.data.created_utc,
-                        subreddit = it.data.subreddit,
                         title = it.data.title,
-                        ups = it.data.ups,
-                        url = it.data.url,
                         thumbnail = it.data.thumbnail,
-                        author_fullname = it.data.author_fullname
+                        num_comments = it.data.num_comments
                     )
                 }
             } catch (e: Exception) {

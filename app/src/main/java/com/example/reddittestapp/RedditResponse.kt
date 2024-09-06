@@ -17,10 +17,7 @@ data class RedditPostWrapper(
 data class RedditPost(
     val author: String,
     val created_utc: Long,
+    val num_comments: Int,
     val title: String,
-    val subreddit: String,
-    val ups: Int,
-    val url: String,
     val thumbnail: String?,
-    val author_fullname: String
 )
