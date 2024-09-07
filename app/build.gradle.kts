@@ -61,6 +61,7 @@ dependencies {
     implementation ("androidx.compose.material:material-icons-extended:1.5.0")
     implementation ("androidx.compose.runtime:runtime-livedata:1.4.0")
     implementation ("com.google.accompanist:accompanist-permissions:0.28.0")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
 
 
 

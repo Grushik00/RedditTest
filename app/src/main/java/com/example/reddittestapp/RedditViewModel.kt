@@ -3,12 +3,10 @@ package com.example.reddittestapp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class RedditViewModel : ViewModel() {
-    private var _posts = MutableStateFlow<List<RedditPost>>(emptyList())
-    var posts: StateFlow<List<RedditPost>> = _posts
+    var posts = MutableStateFlow<List<RedditPost>>(emptyList())
     var after = ""
     private val limit = 15
     var isLoading = false
@@ -23,7 +21,7 @@ class RedditViewModel : ViewModel() {
             try {
                 val response = RetrofitClient.apiService.getTopPosts(limit)
                 after = response.data.after
-                _posts.value = response.data.children.map {
+                posts.value = response.data.children.map {
                     RedditPost(
                         author = it.data.author,
                         created_utc = it.data.created_utc,
@@ -47,7 +45,7 @@ class RedditViewModel : ViewModel() {
             try {
                 val response = RetrofitClient.apiService.getNextPage(limit, after)
                 this@RedditViewModel.after = response.data.after
-                _posts.value += response.data.children.map {
+                posts.value += response.data.children.map {
                     RedditPost(
                         author = it.data.author,
                         created_utc = it.data.created_utc,
